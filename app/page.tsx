@@ -8,6 +8,7 @@ export default function Home() {
           <h1 className="text-4xl font-bold">Welcome User</h1>
         </div>
       </header>
+
       <main className="container mx-auto mt-6">
         <h2 className="text-l font-semibold">
           Select an item from the menu to get started.

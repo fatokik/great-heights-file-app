@@ -1,6 +1,6 @@
 import { FC } from "react";
 
 export const FileViewer: FC = () => {
-  return <></>;
+  return <>Omg im so hot</>;
 };
 export default FileViewer;

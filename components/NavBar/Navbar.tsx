@@ -20,12 +20,15 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import Link from "next/link";
 
 export const Navbar: FC = () => {
   return (
     <div className="w-full border-b border-gray-300 h-12 flex flex-row justify-between px-4">
       <div className="flex flex-row gap-4 justify-center items-center">
-        <RocketIcon className="h-8 w-8 text-blue-300" />
+        <Link href="/">
+          <RocketIcon className="h-8 w-8 text-blue-300" />
+        </Link>
         <p className="font-bold">Great Heights</p>
 
         <DropdownMenu>
@@ -37,26 +40,32 @@ export const Navbar: FC = () => {
 
           <DropdownMenuContent className="w-40">
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                File Viewer
-                <DropdownMenuShortcut>
-                  <EyeOpenIcon />
-                </DropdownMenuShortcut>
-              </DropdownMenuItem>
+              <Link href="file-viewer">
+                <DropdownMenuItem>
+                  File Viewer
+                  <DropdownMenuShortcut>
+                    <EyeOpenIcon />
+                  </DropdownMenuShortcut>
+                </DropdownMenuItem>
+              </Link>
 
-              <DropdownMenuItem>
-                File Upload
-                <DropdownMenuShortcut>
-                  <PinTopIcon />
-                </DropdownMenuShortcut>
-              </DropdownMenuItem>
+              <Link href="file-upload">
+                <DropdownMenuItem>
+                  File Upload
+                  <DropdownMenuShortcut>
+                    <PinTopIcon />
+                  </DropdownMenuShortcut>
+                </DropdownMenuItem>
+              </Link>
 
-              <DropdownMenuItem>
-                Admin
-                <DropdownMenuShortcut>
-                  <PersonIcon />
-                </DropdownMenuShortcut>
-              </DropdownMenuItem>
+              <Link href="admin">
+                <DropdownMenuItem>
+                  Admin
+                  <DropdownMenuShortcut>
+                    <PersonIcon />
+                  </DropdownMenuShortcut>
+                </DropdownMenuItem>
+              </Link>
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
