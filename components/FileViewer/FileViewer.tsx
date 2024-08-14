@@ -9,6 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
+import Page from "../Page/Page";
 
 export const FileViewer: FC = () => {
   const invoices = [
@@ -56,11 +57,7 @@ export const FileViewer: FC = () => {
     },
   ];
   return (
-    <div className="px-3">
-      <div className="">
-        <h1 className="text-4xl">File Viewer</h1>
-      </div>
-      <div></div>
+    <Page title="File Viewer">
       <Table>
         <TableCaption>Collection of important files.</TableCaption>
         <TableHeader>
@@ -87,7 +84,7 @@ export const FileViewer: FC = () => {
           </TableRow>
         </TableFooter>
       </Table>
-    </div>
+    </Page>
   );
 };
 export default FileViewer;
