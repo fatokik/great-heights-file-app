@@ -9,55 +9,58 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
+import { Input } from "../ui/input";
 import Page from "../Page/Page";
+import { Label } from "../ui/label";
+import { Button } from "../ui/button";
 
 export const FileViewer: FC = () => {
-  const invoices = [
+  const dummyfileData = [
     {
-      id: 999,
-      file_name: "INV007",
-      file_type: "Unpaid",
-      date_uploaded: "$300.00",
+      id: 1,
+      file_name: "test_file1.pdf",
+      file_type: "medical",
+      date_uploaded: "06/2/2024",
     },
     {
-      id: 999,
-      file_name: "INV007",
-      file_type: "Unpaid",
-      date_uploaded: "$300.00",
+      id: 2,
+      file_name: "test_file2.pdf",
+      file_type: "immigration",
+      date_uploaded: "07/5/2024",
     },
     {
-      id: 999,
-      file_name: "INV007",
-      file_type: "Unpaid",
-      date_uploaded: "$300.00",
+      id: 3,
+      file_name: "test_file3.pdf",
+      file_type: "private",
+      date_uploaded: "08/2/2024",
     },
     {
-      id: 999,
-      file_name: "INV007",
-      file_type: "Unpaid",
-      date_uploaded: "$300.00",
-    },
-    {
-      id: 999,
-      file_name: "INV007",
-      file_type: "Unpaid",
-      date_uploaded: "$300.00",
-    },
-    {
-      id: 999,
-      file_name: "INV007",
-      file_type: "Unpaid",
-      date_uploaded: "$300.00",
-    },
-    {
-      id: 999,
-      file_name: "INV007",
-      file_type: "Unpaid",
-      date_uploaded: "$300.00",
+      id: 4,
+      file_name: "test_file4.pdf",
+      file_type: "medical",
+      date_uploaded: "08/23/2024",
     },
   ];
   return (
     <Page title="File Viewer">
+      <div className="flex flex-row gap-x-8">
+        <div>
+          <Label htmlFor="fileName">File Name</Label>
+          <Input id="fileName" placeholder="Filter by file name" />
+        </div>
+        <div>
+          <Label htmlFor="fileType">File Type</Label>
+          <Input id="fileType" placeholder="Filter by file type" />
+        </div>
+        <div>
+          <Label htmlFor="fileDate">Date</Label>
+          <Input id="fileDate" placeholder="Filter by file name" type="date" />
+        </div>
+
+        <div>
+          <Button>Search</Button>
+        </div>
+      </div>
       <Table>
         <TableCaption>Collection of important files.</TableCaption>
         <TableHeader>
@@ -69,11 +72,11 @@ export const FileViewer: FC = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {invoices.map((invoice) => (
-            <TableRow key={invoice.id}>
-              <TableCell className="font-medium">{invoice.file_name}</TableCell>
-              <TableCell>{invoice.file_type}</TableCell>
-              <TableCell>{invoice.file_name}</TableCell>
+          {dummyfileData.map((file) => (
+            <TableRow key={file.id}>
+              <TableCell className="font-medium">{file.file_name}</TableCell>
+              <TableCell>{file.file_type}</TableCell>
+              <TableCell>{file.file_name}</TableCell>
             </TableRow>
           ))}
         </TableBody>
