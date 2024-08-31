@@ -13,6 +13,9 @@ import { Input } from "../ui/input";
 import Page from "../Page/Page";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
+import { Badge } from "../ui/badge";
+
+import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 
 export const FileViewer: FC = () => {
   const dummyfileData = [
@@ -43,7 +46,7 @@ export const FileViewer: FC = () => {
   ];
   return (
     <Page title="File Viewer">
-      <div className="flex flex-row gap-x-8">
+      <div className="flex flex-row justify-center gap-x-8 pb-8">
         <div>
           <Label htmlFor="fileName">File Name</Label>
           <Input id="fileName" placeholder="Filter by file name" />
@@ -57,7 +60,7 @@ export const FileViewer: FC = () => {
           <Input id="fileDate" placeholder="Filter by file name" type="date" />
         </div>
 
-        <div>
+        <div className="flex items-end ">
           <Button>Search</Button>
         </div>
       </div>
@@ -65,27 +68,27 @@ export const FileViewer: FC = () => {
         <TableCaption>Collection of important files.</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">File Name</TableHead>
+            <TableHead>File Name</TableHead>
             <TableHead>File Type</TableHead>
             <TableHead>Date Uploaded</TableHead>
-            <TableHead className="text-right">Amount</TableHead>
+            <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {dummyfileData.map((file) => (
             <TableRow key={file.id}>
               <TableCell className="font-medium">{file.file_name}</TableCell>
-              <TableCell>{file.file_type}</TableCell>
-              <TableCell>{file.file_name}</TableCell>
+              <TableCell>
+                <Badge variant="secondary">{file.file_type}</Badge>
+              </TableCell>
+              <TableCell>{file.date_uploaded}</TableCell>
+              <TableCell>
+                <DotsHorizontalIcon className="h-4 w-4" />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TableCell colSpan={3}>Total</TableCell>
-            <TableCell className="text-right">$2,500.00</TableCell>
-          </TableRow>
-        </TableFooter>
+        <TableFooter></TableFooter>
       </Table>
     </Page>
   );
