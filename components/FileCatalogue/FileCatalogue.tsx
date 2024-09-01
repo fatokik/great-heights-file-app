@@ -15,9 +15,9 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 
-import { DotsHorizontalIcon } from "@radix-ui/react-icons";
+import { DotsHorizontalIcon, UploadIcon } from "@radix-ui/react-icons";
 
-export const FileViewer: FC = () => {
+export const FileCatalogue: FC = () => {
   const dummyfileData = [
     {
       id: 1,
@@ -44,8 +44,9 @@ export const FileViewer: FC = () => {
       date_uploaded: "08/23/2024",
     },
   ];
+
   return (
-    <Page title="File Viewer">
+    <Page title="File Catalogue">
       <div className="flex flex-row justify-center gap-x-8 pb-8">
         <div>
           <Label htmlFor="fileName">File Name</Label>
@@ -62,6 +63,13 @@ export const FileViewer: FC = () => {
 
         <div className="flex items-end ">
           <Button>Search</Button>
+        </div>
+
+        <div className="flex items-end ">
+          <Button>
+            Upload Files
+            <UploadIcon className="ml-2" />
+          </Button>
         </div>
       </div>
       <Table>
@@ -93,4 +101,4 @@ export const FileViewer: FC = () => {
     </Page>
   );
 };
-export default FileViewer;
+export default FileCatalogue;

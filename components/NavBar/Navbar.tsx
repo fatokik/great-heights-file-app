@@ -8,6 +8,7 @@ import {
   EyeOpenIcon,
   PinTopIcon,
   PersonIcon,
+  FileTextIcon,
 } from "@radix-ui/react-icons";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
@@ -40,11 +41,11 @@ export const Navbar: FC = () => {
 
           <DropdownMenuContent className="w-40">
             <DropdownMenuGroup>
-              <Link href="file-viewer">
+              <Link href="file-catalogue">
                 <DropdownMenuItem>
-                  File Viewer
+                  File Catalogue
                   <DropdownMenuShortcut>
-                    <EyeOpenIcon />
+                    <FileTextIcon />
                   </DropdownMenuShortcut>
                 </DropdownMenuItem>
               </Link>
