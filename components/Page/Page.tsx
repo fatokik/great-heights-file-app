@@ -1,5 +1,4 @@
 import { FC, ReactNode } from "react";
-import Head from "next/head";
 
 interface PageProps {
   children: ReactNode;
@@ -9,7 +8,9 @@ interface PageProps {
 export const Page: FC<PageProps> = ({ children, title = "My Web App" }) => {
   return (
     <div>
-      <h1 className="text-4xl px-3">{title}</h1>
+      <b>
+        <h1 className="text-4xl px-10 py-7">{title}</h1>
+      </b>
 
       <main className="container mx-auto px-4">{children}</main>
 
