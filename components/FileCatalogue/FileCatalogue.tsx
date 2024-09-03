@@ -1,4 +1,6 @@
-import { FC } from "react";
+"use client";
+
+import { useState } from "react";
 import {
   Table,
   TableBody,
@@ -15,9 +17,12 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 
+import { FileUploadView } from "./FileUploadView";
+
 import { DotsHorizontalIcon, UploadIcon } from "@radix-ui/react-icons";
 
-export const FileCatalogue: FC = () => {
+export const FileCatalogue: React.FC = () => {
+  const [isFileDialogOpen, setIsFileDialogOpen] = useState(false);
   const dummyfileData = [
     {
       id: 1,
@@ -47,6 +52,10 @@ export const FileCatalogue: FC = () => {
 
   return (
     <Page title="File Catalogue">
+      <FileUploadView
+        isOpen={isFileDialogOpen}
+        onClose={() => setIsFileDialogOpen(!isFileDialogOpen)}
+      />
       <div className="flex flex-row justify-center gap-x-8 pb-8">
         <div>
           <Label htmlFor="fileName">File Name</Label>
@@ -66,7 +75,7 @@ export const FileCatalogue: FC = () => {
         </div>
 
         <div className="flex items-end ">
-          <Button>
+          <Button onClick={() => setIsFileDialogOpen(!isFileDialogOpen)}>
             Upload Files
             <UploadIcon className="ml-2" />
           </Button>
