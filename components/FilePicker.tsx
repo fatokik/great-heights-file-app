@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -14,24 +14,58 @@ export const FilePicker: React.FC<FilePickerProps> = (
   props: FilePickerProps
 ) => {
   const [hover, setHover] = useState(false);
-  const [fileText, setFileText] = useState("Select or drag and drop multiple ");
+  const [fileText, setFileText] = useState(
+    "Select or drag and drop multiple files"
+  );
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const currFiles = event.target.files ? event.target.files : null;
 
     if (currFiles) {
       props.onChange(currFiles);
-      currFiles.length === 1
-        ? setFileText(`${currFiles.length} file selected`)
-        : setFileText(`${currFiles.length} files selected`);
+
+      if (currFiles.length) {
+        currFiles.length === 1
+          ? setFileText(`${currFiles.length} file selected`)
+          : setFileText(`${currFiles.length} files selected`);
+      } else {
+        setFileText("Select or drag and drop multiple files");
+      }
     }
   };
 
-  const handleOnMouseEnter = () => {
+  const handleFileClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+  };
+
+  const handleDragEnter = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
     setHover(true);
   };
-  const handleOnMouseLeave = () => {
+
+  const handleDragLeave = () => {
     setHover(false);
+  };
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setHover(false);
+
+    const droppedFiles = event.dataTransfer.files;
+    if (droppedFiles) {
+      props.onChange(droppedFiles);
+      droppedFiles.length === 1
+        ? setFileText(`${droppedFiles.length} file selected`)
+        : setFileText(`${droppedFiles.length} files selected`);
+    }
   };
 
   return (
@@ -41,16 +75,18 @@ export const FilePicker: React.FC<FilePickerProps> = (
         "min-h-[10vh] w-[250px]",
         hover && "bg-blue-50"
       )}
-      onMouseEnter={handleOnMouseEnter}
-      onMouseLeave={handleOnMouseLeave}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      onDragOver={handleDragOver}
+      onDragEnter={handleDragEnter}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+      onClick={handleFileClick}
     >
       <div className="flex flex-col items-center">
-        <Button
-          //   as="label"
-          variant={hover ? "default" : "outline"}
-          className="flex flex-col items-center"
-        >
+        <Button variant={"ghost"} className="flex flex-col items-center">
           <input
+            ref={fileInputRef}
             multiple
             type="file"
             onChange={handleFileChange}
@@ -58,7 +94,7 @@ export const FilePicker: React.FC<FilePickerProps> = (
           />
           <PinTopIcon />
         </Button>
-        <p>{fileText}</p>
+        <p className="text-xs">{fileText}</p>
       </div>
     </div>
   );
