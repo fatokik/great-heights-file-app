@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { PinTopIcon } from "@radix-ui/react-icons";
+import { PinTopIcon, TrashIcon } from "@radix-ui/react-icons";
 
 interface FilePickerProps {
   onChange: (e: FileList | null) => void;
@@ -14,6 +14,7 @@ export const FilePicker: React.FC<FilePickerProps> = (
   props: FilePickerProps
 ) => {
   const [hover, setHover] = useState(false);
+  const [files, setFiles] = useState<FileList | null>(null);
   const [fileText, setFileText] = useState(
     "Select or drag and drop multiple files"
   );
@@ -23,17 +24,24 @@ export const FilePicker: React.FC<FilePickerProps> = (
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const currFiles = event.target.files ? event.target.files : null;
 
-    if (currFiles) {
+    if (currFiles && currFiles.length > 0) {
       props.onChange(currFiles);
 
-      if (currFiles.length) {
-        currFiles.length === 1
-          ? setFileText(`${currFiles.length} file selected`)
-          : setFileText(`${currFiles.length} files selected`);
+      setFiles(currFiles);
+      if (files) {
+        files.length === 1
+          ? setFileText(`${files.length} file selected`)
+          : setFileText(`${files.length} files selected`);
       } else {
         setFileText("Select or drag and drop multiple files");
       }
+    } else {
+      clearFilePicker();
     }
+  };
+
+  const clearFilePicker = () => {
+    setFiles(null);
   };
 
   const handleFileClick = () => {
@@ -95,6 +103,13 @@ export const FilePicker: React.FC<FilePickerProps> = (
           <PinTopIcon />
         </Button>
         <p className="text-xs">{fileText}</p>
+        {files && (
+          <>
+            <Button variant={"ghost"} size={"sm"} onClick={clearFilePicker}>
+              <TrashIcon />
+            </Button>
+          </>
+        )}
       </div>
     </div>
   );
