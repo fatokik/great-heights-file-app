@@ -50,15 +50,6 @@ export const Navbar: FC = () => {
                 </DropdownMenuItem>
               </Link>
 
-              <Link href="file-upload">
-                <DropdownMenuItem>
-                  File Upload
-                  <DropdownMenuShortcut>
-                    <PinTopIcon />
-                  </DropdownMenuShortcut>
-                </DropdownMenuItem>
-              </Link>
-
               <Link href="admin">
                 <DropdownMenuItem>
                   Admin

@@ -5,6 +5,9 @@ interface PageProps {
   title?: string;
 }
 
+//TODO
+// make a prop that allows you to add more styles if need be
+
 export const Page: FC<PageProps> = ({ children, title = "My Web App" }) => {
   return (
     <div>

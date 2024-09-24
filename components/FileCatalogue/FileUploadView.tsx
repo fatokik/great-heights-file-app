@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { FilePicker } from "../FilePicker";
 
 import { Button } from "@/components/ui/button";
@@ -17,7 +18,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 type FileUploadViewProps = {
@@ -25,17 +25,28 @@ type FileUploadViewProps = {
   onClose: () => void;
 };
 
+type FormData = {
+  files: FileList;
+  fileType: string;
+};
+
 export const FileUploadView: React.FC<FileUploadViewProps> = ({
   isOpen,
   onClose,
 }) => {
+  const [formData, setFormData] = useState<FormData>();
+
+  const onTypeFileTypeSelection = (fileType: string) => {
+    console.log(fileType);
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Upload Files</DialogTitle>
           <DialogDescription>
-            {`Please upload relevant file(s) and select the relevant tags`}
+            {`Please upload relevant file(s) and select the corresponding tags`}
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
@@ -49,9 +60,9 @@ export const FileUploadView: React.FC<FileUploadViewProps> = ({
             <Label htmlFor="name" className="text-right">
               File Type
             </Label>
-            <Select>
+            <Select onValueChange={onTypeFileTypeSelection}>
               <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Type" />
+                <SelectValue placeholder="Select an option" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="light">Light</SelectItem>
