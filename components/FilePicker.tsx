@@ -1,18 +1,22 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { forwardRef, useState, useRef, useImperativeHandle } from "react";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { PinTopIcon, TrashIcon } from "@radix-ui/react-icons";
 
+export interface FilePickerRef {
+  clearFilePicker: () => void;
+}
 interface FilePickerProps {
   onChange: (e: FileList | null) => void;
 }
 
-export const FilePicker: React.FC<FilePickerProps> = (
-  props: FilePickerProps
-) => {
+export const FilePicker = forwardRef(function FilePicker(
+  props: FilePickerProps,
+  ref
+) {
   const [fileDivhover, setFileDivHover] = useState(false);
   const [deleteFileHover, setDeleteFileHover] = useState(false);
   const [files, setFiles] = useState<FileList | null>(null);
@@ -21,6 +25,16 @@ export const FilePicker: React.FC<FilePickerProps> = (
   );
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      clearFilePicker: () => {
+        clearFilePicker();
+      },
+    }),
+    []
+  );
 
   const handleFileChange = (files: FileList | null) => {
     if (files) {
@@ -50,7 +64,9 @@ export const FilePicker: React.FC<FilePickerProps> = (
     setFiles(null);
     setFileText("Select or drag and drop multiple files");
 
-    if (fileInputRef.current) fileInputRef.current.value = "";
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   const handleFileClick = () => {
@@ -124,5 +140,5 @@ export const FilePicker: React.FC<FilePickerProps> = (
       </div>
     </div>
   );
-};
+});
 export default FilePicker;

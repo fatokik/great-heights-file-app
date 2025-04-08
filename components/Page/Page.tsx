@@ -10,12 +10,12 @@ interface PageProps {
 
 export const Page: FC<PageProps> = ({ children, title = "My Web App" }) => {
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <b>
         <h1 className="text-4xl px-10 py-7">{title}</h1>
       </b>
 
-      <main className="container mx-auto px-4">{children}</main>
+      <main className="container mx-auto px-4 flex-grow">{children}</main>
 
       <footer>
         <p>© 2024 My Web App. All rights reserved.</p>

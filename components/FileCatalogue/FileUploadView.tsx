@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { FilePicker } from "../FilePicker";
+import { useState, useRef } from "react";
+import { FilePicker, FilePickerRef } from "../FilePicker";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -10,34 +10,52 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 import { Label } from "@/components/ui/label";
+
+import { FileTypePicker, FileTypePickerRef } from "../LightComponents";
 
 type FileUploadViewProps = {
   isOpen: boolean;
   onClose: () => void;
 };
 
-type FormData = {
-  files: FileList;
-  fileType: string;
-};
+const HELPTEXT = `Please upload relevant file(s) and select the corresponding tags`;
 
 export const FileUploadView: React.FC<FileUploadViewProps> = ({
   isOpen,
   onClose,
 }) => {
-  const [formData, setFormData] = useState<FormData>();
+  const [files, setFiles] = useState<FileList | null>();
+  const [fileType, setFileType] = useState<string | null>(null);
+
+  const filePickerRef = useRef<FilePickerRef>(null);
+  const fileTypePickerRef = useRef<FileTypePickerRef>(null);
 
   const onTypeFileTypeSelection = (fileType: string) => {
-    console.log(fileType);
+    setFileType(fileType);
+  };
+
+  const onSubmit = () => {
+    if (files && fileType) {
+      const payload = {
+        files: files,
+        fileType: fileType,
+      };
+      try {
+        console.log(payload);
+      } catch (e) {
+        console.log(e);
+      }
+      resetFormValues();
+    }
+  };
+
+  const resetFormValues = () => {
+    setFiles(null);
+    setFileType("");
+    filePickerRef?.current?.clearFilePicker();
+    fileTypePickerRef?.current?.resetPicker();
   };
 
   return (
@@ -45,36 +63,30 @@ export const FileUploadView: React.FC<FileUploadViewProps> = ({
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Upload Files</DialogTitle>
-          <DialogDescription>
-            {`Please upload relevant file(s) and select the corresponding tags`}
-          </DialogDescription>
+          <DialogDescription>{HELPTEXT}</DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="username" className="text-right">
               {`File(s)`}
             </Label>
-            <FilePicker onChange={() => {}} />
+            <FilePicker
+              ref={filePickerRef}
+              onChange={(e) => {
+                setFiles(e);
+              }}
+            />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              File Type
-            </Label>
-            <Select onValueChange={onTypeFileTypeSelection}>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select an option" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="light">Light</SelectItem>
-                <SelectItem value="dark">Dark</SelectItem>
-                <SelectItem value="system">System</SelectItem>
-              </SelectContent>
-            </Select>
+            <FileTypePicker
+              ref={fileTypePickerRef}
+              onValueChange={onTypeFileTypeSelection}
+            />
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={onClose}>
-            Save
+          <Button type="submit" onClick={onSubmit}>
+            Submit
           </Button>
         </DialogFooter>
       </DialogContent>

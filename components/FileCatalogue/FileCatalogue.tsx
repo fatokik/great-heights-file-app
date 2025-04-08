@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import moment from "moment";
 import {
   Table,
   TableBody,
@@ -18,11 +19,17 @@ import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 
 import { FileUploadView } from "./FileUploadView";
+import { FileTypePicker } from "../LightComponents";
 
 import { DotsHorizontalIcon, UploadIcon } from "@radix-ui/react-icons";
 
 export const FileCatalogue: React.FC = () => {
   const [isFileDialogOpen, setIsFileDialogOpen] = useState(false);
+  //consider putting all filters in one object
+  const [fileNameFilter, setFileNameFilter] = useState("");
+  const [fileTypeFilter, setFileTypeFilter] = useState("");
+  const [dateUploadedFilter, setDateUploadedFilter] = useState<moment.Moment>();
+
   const dummyfileData = [
     {
       id: 1,
@@ -50,6 +57,8 @@ export const FileCatalogue: React.FC = () => {
     },
   ];
 
+  const onSearchClick = () => {};
+
   return (
     <Page title="File Catalogue">
       <FileUploadView
@@ -62,8 +71,7 @@ export const FileCatalogue: React.FC = () => {
           <Input id="fileName" placeholder="Filter by file name" />
         </div>
         <div>
-          <Label htmlFor="fileType">File Type</Label>
-          <Input id="fileType" placeholder="Filter by file type" />
+          <FileTypePicker onValueChange={(e) => {}} />
         </div>
         <div>
           <Label htmlFor="fileDate">Date</Label>
@@ -71,7 +79,7 @@ export const FileCatalogue: React.FC = () => {
         </div>
 
         <div className="flex items-end ">
-          <Button>Search</Button>
+          <Button onClick={onSearchClick}>Search</Button>
         </div>
 
         <div className="flex items-end ">
