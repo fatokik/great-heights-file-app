@@ -27,13 +27,12 @@ export const FileCatalogueTable: React.FC<FileCatalogueTableProps> = ({
 }) => {
   return (
     <Table>
-      <TableCaption>Collection of important files.</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>File Name</TableHead>
           <TableHead>File Type</TableHead>
           <TableHead>Date Uploaded</TableHead>
-          <TableHead>Actions</TableHead>
+          <TableHead className="text-right">Actions</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -44,13 +43,14 @@ export const FileCatalogueTable: React.FC<FileCatalogueTableProps> = ({
               <Badge variant="secondary">{file.file_type}</Badge>
             </TableCell>
             <TableCell>{file.date_uploaded}</TableCell>
-            <TableCell>
+            <TableCell className="flex justify-end">
               <DotsHorizontalIcon className="h-4 w-4" />
             </TableCell>
           </TableRow>
         ))}
       </TableBody>
       <TableFooter></TableFooter>
+      <TableCaption>Collection of important files.</TableCaption>
     </Table>
   );
 };
