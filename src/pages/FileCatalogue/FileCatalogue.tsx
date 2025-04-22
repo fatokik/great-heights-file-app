@@ -13,8 +13,6 @@ import { FileCatalogueSearchForm } from "./FileCatalogueSearchForm";
 
 import { getDummyFileData } from "./mock-data";
 
-import { UploadIcon } from "@radix-ui/react-icons";
-
 export const FileCatalogue: React.FC = () => {
   const [isFileDialogOpen, setIsFileDialogOpen] = useState(false);
 
