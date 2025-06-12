@@ -22,8 +22,13 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import Link from "next/link";
+import { SidebarTrigger } from "../ui/sidebar";
 
-export const Navbar: FC = () => {
+type NavbarProps = {
+  children?: React.ReactNode;
+};
+
+export const Navbar: FC<NavbarProps> = ({ children }) => {
   return (
     <div className="w-full border-b border-gray-300 h-12 flex flex-row justify-between px-4">
       <div className="flex flex-row gap-4 justify-center items-center">
@@ -31,38 +36,9 @@ export const Navbar: FC = () => {
           <RocketIcon className="h-8 w-8 text-blue-300" />
         </Link>
         <p className="font-bold">Great Heights</p>
-
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon">
-              <RowsIcon className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-
-          <DropdownMenuContent className="w-40">
-            <DropdownMenuGroup>
-              <Link href="file-catalogue">
-                <DropdownMenuItem>
-                  File Catalogue
-                  <DropdownMenuShortcut>
-                    <FileTextIcon />
-                  </DropdownMenuShortcut>
-                </DropdownMenuItem>
-              </Link>
-
-              <Link href="admin">
-                <DropdownMenuItem>
-                  Admin
-                  <DropdownMenuShortcut>
-                    <PersonIcon />
-                  </DropdownMenuShortcut>
-                </DropdownMenuItem>
-              </Link>
-            </DropdownMenuGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <SidebarTrigger />
       </div>
-
+      <div className="flex items-center space-x-4">{children}</div>
       <div className="flex flex-row gap-5 items-center">
         <Popover>
           <PopoverTrigger asChild>

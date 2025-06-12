@@ -1,6 +1,8 @@
 import { Inter } from "next/font/google";
 
 import Navbar from "@/src/components/NavBar/Navbar";
+import AppSidebar from "@/src/components/Sidebar/Sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/src/components/ui/sidebar";
 
 import "./globals.css";
 
@@ -13,12 +15,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <div className="w-screen h-screen flex flex-col overflow-hidden">
-          <Navbar />
-          <main className="flex-1 overflow-hidden">{children}</main>
-          <footer className="shrink-0">Made by a Real One</footer>
-        </div>
+      <body className={`${inter.className} min-h-screen `}>
+        <SidebarProvider>
+          <div className="flex flex-col h-full overflow-hidden w-full">
+            <header className="">
+              <Navbar />
+            </header>
+            <div className="flex flex-1 overflow-hidden w-full">
+              <AppSidebar />
+              <main className="flex-1 overflow-hidden p-4 max-w-full [min-inline-size:0px] bg-gray-100 w-full">
+                {children}
+              </main>
+            </div>
+          </div>
+        </SidebarProvider>
       </body>
     </html>
   );

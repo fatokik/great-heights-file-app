@@ -4,7 +4,7 @@ import Admin from "@/src/pages/Admin/Admin";
 
 export const AdminPage: FC = () => {
   return (
-    <div>
+    <div className="w-full">
       <Admin />
     </div>
   );
