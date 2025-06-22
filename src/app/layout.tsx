@@ -2,7 +2,7 @@ import { Inter } from "next/font/google";
 
 import Navbar from "@/src/components/NavBar/Navbar";
 import AppSidebar from "@/src/components/Sidebar/Sidebar";
-import { SidebarProvider, SidebarTrigger } from "@/src/components/ui/sidebar";
+import { SidebarProvider } from "@/src/components/ui/sidebar";
 
 import "./globals.css";
 
